@@ -2,71 +2,77 @@ import os
 
 current_directory = os.getcwd()
 
-def execute_command(command):
-    global current_directory
+def create_directory(directory_name):
+    try:
+        os.mkdir(directory_name)
+        print(f"Directory '{directory_name}' created successfully!")
+    except FileExistsError:
+        print(f"Directory '{directory_name}' already exists!")
 
-    parts = command.split()
-    command_name = parts[0]
+def create_file(file_name):
+    try:
+        with open(file_name, 'w') as file:
+            print(f"File '{file_name}' created successfully!")
+    except:
+        print(f"An error occurred while creating the file '{file_name}'.")
 
-    if command_name == "mkdir":
-        directory_name = parts[1]
-        path = os.path.join(current_directory, directory_name)
-        
-        try:
-            os.mkdir(path)
-            print(f"Directory '{directory_name}' created successfully.")
-        except FileExistsError:
-            print(f"Directory '{directory_name}' already exists.")
-        except Exception as e:
-            print(f"An error occurred while creating the directory: {e}")
-    
-    elif command_name == "make":
-        file_name = parts[1]
-        file_content = " ".join(parts[2:])
-        file_path = os.path.join(current_directory, file_name)
-
-        try:
-            with open(file_path, "w") as file:
-                file.write(file_content)
-            print(f"File '{file_name}' created successfully.")
-        except Exception as e:
-            print(f"An error occurred while creating the file: {e}")
-
-    elif command_name == "ls":
-        try:
-            files = os.listdir(current_directory)
-            print("Contents of the current directory:")
-            for file in files:
-                print(file)
-        except Exception as e:
-            print(f"An error occurred while listing the directory contents: {e}")
-
-    elif command_name == "cd":
-        try:
-            if len(parts) > 1:
-                directory_name = parts[1]
-                current_directory = os.path.join(current_directory, directory_name)
-            else:
-                current_directory = os.path.expanduser("~")
-            
-            os.chdir(current_directory)
-            print(f"Changed directory to '{current_directory}'")
-        except Exception as e:
-            print(f"An error occurred while changing the directory: {e}")
-
+def list_directory_contents():
+    contents = os.listdir(current_directory)
+    if len(contents) == 0:
+        print("The directory is empty.")
     else:
-        print(f"Command '{command_name}' not recognized.")
+        print("Directory Contents:")
+        for content in contents:
+            print(content)
 
-def main():
-    print("Welcome to the Terminal Simulator!")
-    print("Enter 'exit' to quit the program.")
+def change_directory(directory_name):
+    try:
+        os.chdir(directory_name)
+        global current_directory
+        current_directory = os.getcwd()
+        print(f"Changed directory to '{current_directory}'")
+    except FileNotFoundError:
+        print(f"Directory '{directory_name}' does not exist!")
+    except NotADirectoryError:
+        print(f"'{directory_name}' is not a directory!")
+
+def nano(file_name):
+    try:
+        os.system(f'nano {file_name}')
+    except:
+        print(f"An error occurred while opening the file '{file_name}' in nano.")
+
+def command_prompt():
+    print("Welcome to the Command Prompt!")
+    print("Available commands: create_directory, create_file, list_directory, change_directory, nano, exit")
 
     while True:
-        command = input(f"\n{current_directory} $ ")
-        if command == "exit":
-            break
-        
-        execute_command(command)
+        command = input("\nEnter a command: ")
 
-if __name__ == "__main__":
-    main()
+        if command == "create_directory":
+            directory_name = input("Enter the name of the directory: ")
+            create_directory(directory_name)
+
+        elif command == "create_file":
+            file_name = input("Enter the name of the file: ")
+            create_file(file_name)
+
+        elif command == "list_directory":
+            list_directory_contents()
+
+        elif command == "change_directory":
+            directory_name = input("Enter the name of the directory: ")
+            change_directory(directory_name)
+
+        elif command == "nano":
+            file_name = input("Enter the name of the file: ")
+            nano(file_name)
+
+        elif command == "exit":
+            print("Exiting the Command Prompt...")
+            break
+
+        else:
+            print("Invalid command! Please try again.")
+
+command_prompt()
