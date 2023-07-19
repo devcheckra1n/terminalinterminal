@@ -25,6 +25,11 @@ cd
 
 The main() function is responsible for the program's main logic. It welcomes the user and prompts for commands in a loop until the user enters exit.
 
+nano
+: Open the nano text editor and make changes to text files. Simply enter "nano" as the command and provide the name of the file you want to edit when prompted.
+
 Overall, this code provides a simple simulation of a terminal where users can create directories, files, list directory contents, and navigate through directories.
 
 This emulates your directory using the os library
+
+Copyright devcheckra1n 2023.
