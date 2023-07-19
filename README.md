@@ -3,28 +3,30 @@ I thought this would be funny.
 This project is in Python.
 the commands are down here
 
-mkdir
+make_directory
 : Creates a new directory in the current working directory. The command should be in the format 
-mkdir directory_name
+make_directory directory_name
 .
 
-make
+create_file
 : Creates a new file in the current working directory. The command should be in the format 
-make file_name file_content
+create_file file_name file_content
 .
 
-ls
+list_directory
 : Lists the contents of the current working directory.
 
-cd
+change_directory
 : Changes the current working directory. The command should be in the format 
-cd directory_name
+change_directory directory_name
  to navigate to a specific directory or 
-cd
+change_directory
  to go to the home directory.
 
-The main() function is responsible for the program's main logic. It welcomes the user and prompts for commands in a loop until the user enters exit.
-
+ create_directory
+ : Creates a directory in the current working directory. The command should be in the format
+ create_directory directory_name
+ 
 nano
 : Open the nano text editor and make changes to text files. Simply enter "nano" as the command and provide the name of the file you want to edit when prompted.
 
