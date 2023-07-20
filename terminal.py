@@ -1,7 +1,6 @@
 import os
 
 current_directory = os.getcwd()
-commands = ["create_directory", "create_file", "list_directory", "change_directory", "nano", "exit"]
 
 def create_directory(directory_name):
     try:
@@ -50,26 +49,30 @@ def command_prompt():
     while True:
         command = input("\nEnter a command: ")
 
-        if command == "exit":
+        if command == "create_directory":
+            directory_name = input("Enter the name of the directory: ")
+            create_directory(directory_name)
+
+        elif command == "create_file":
+            file_name = input("Enter the name of the file: ")
+            create_file(file_name)
+
+        elif command == "list_directory":
+            list_directory_contents()
+
+        elif command == "change_directory":
+            directory_name = input("Enter the name of the directory: ")
+            change_directory(directory_name)
+
+        elif command == "nano":
+            file_name = input("Enter the name of the file: ")
+            nano(file_name)
+
+        elif command == "exit":
             print("Exiting the Command Prompt...")
             break
 
-        elif command in commands:
-            print(f"Command '{command}' found!")
-
         else:
             print("Invalid command! Please try again.")
-
-        if command != "exit":
-            autocomplete_command(command)
-
-def autocomplete_command(command):
-    matching_commands = [c for c in commands if c.startswith(command)]
-
-    if len(matching_commands) == 1:
-        completed_command = matching_commands[0]
-        print(f"Autocompleted command: {completed_command}")
-    elif len(matching_commands) > 1:
-        print("Too many options! Add more context to the word for autocomplete!")
 
 command_prompt()
